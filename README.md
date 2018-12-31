@@ -6,5 +6,15 @@
 
 Comming soon...
 
+## Get it running:
+
+```sh
+docker-compose up --build
+```
+
+```sh
+curl http://api.deep-trace.127.0.0.1.nip.io/ping
+```
+
 ## License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdeep-trace%2Ftracing-api.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdeep-trace%2Ftracing-api?ref=badge_large)

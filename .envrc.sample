@@ -1,0 +1,4 @@
+export DEEPTRACE_NAMESPACE="deep-trace"
+export DEEPTRACE_MONGODB_DB="deep-trace"
+export DEEPTRACE_MONGODB_URI="mongodb://127.0.0.1:27017/deep-trace"
+export SENTRY_DSN=

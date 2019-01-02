@@ -11,7 +11,8 @@ const schema = joi.object().required().keys({
   tags: joi.object().pattern(joi.string(), joi.string().allow(null)).required(),
   request: joi.object().required().keys({
     method: joi.string().required(),
-    uri: joi.string().uri().trim().required(),
+    uri: joi.string().uri({ scheme: [ 'http', 'https' ] }).trim().required(),
+    ip: joi.string().ip().required(),
     headers: joi.object().pattern(joi.string(), joi.string()).required(),
     body: joi.string().required().allow(null),
     timestamp: joi.date().iso().raw().required()

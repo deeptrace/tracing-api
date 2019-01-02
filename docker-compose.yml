@@ -17,7 +17,6 @@ services:
 
     tracing-api:
         build: .
-        image: deeptrace/tracing-api:${RELEASE_VERSION:-latest}
         depends_on:
             - mongodb
         environment:

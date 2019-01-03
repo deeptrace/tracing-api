@@ -1,6 +1,6 @@
 'use strict'
 
-const { env } = require('@seawrom/appify')
+const { env } = require('@deep-trace/appify')
 
 module.exports = {
   namespace: env.get('DEEPTRACE_NAMESPACE', 'deeptrace'),

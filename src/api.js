@@ -1,6 +1,6 @@
 'use strict'
 
-const appify = require('@seawrom/appify')
+const appify = require('@deep-trace/appify')
 const errorhandlers = require('./error-handlers.js')
 const mongofactory = require('./mongo.js')
 const routehandlers = require('./route-handlers.js')

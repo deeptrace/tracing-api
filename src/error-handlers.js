@@ -1,6 +1,6 @@
 'use strict'
 
-const { HttpError } = require('@seawrom/appify')
+const { HttpError } = require('@deep-trace/appify')
 
 module.exports = {
   joi: () => {

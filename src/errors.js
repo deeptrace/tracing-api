@@ -1,6 +1,6 @@
 'use strict'
 
-const { Error, HttpError } = require('@seawrom/appify')
+const { Error, HttpError } = require('@deep-trace/appify')
 
 class DeepTraceError extends Error {
   //

@@ -1,29 +1,29 @@
 version: '3.7'
 
 services:
-  vhost:
-    image: jwilder/nginx-proxy:alpine
-    ports:
-      - 80:80
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+    vhost:
+        image: jwilder/nginx-proxy:alpine
+        ports:
+            - 80:80
+        volumes:
+            - /var/run/docker.sock:/tmp/docker.sock:ro
 
-  mongodb:
-    image: mvertes/alpine-mongo
-    ports:
-      - 27017:27017
-    volumes:
-      - mongodb:/data/db
+    mongodb:
+        image: mvertes/alpine-mongo
+        ports:
+            - 27017:27017
+        volumes:
+            - mongodb:/data/db
 
-  api:
-    build: .
-    depends_on:
-      - mongodb
-    environment:
-      DEBUG: appify:*
-      DEEPTRACE_MONGODB_URI: mongodb://mongodb:27017/deeptrace
-      NODE_ENV: development
-      VIRTUAL_HOST: api.deep-trace.*
+    tracing-api:
+        build: .
+        depends_on:
+            - mongodb
+        environment:
+            DEBUG: appify:*
+            DEEPTRACE_MONGODB_URI: mongodb://mongodb:27017/deep-trace
+            NODE_ENV: development
+            VIRTUAL_HOST: api.deep-trace.*
 
 volumes:
-  mongodb:
+    mongodb:

@@ -1,8 +1,7 @@
 'use strict'
 
-const errors = require('./errors.js')
+const { DuplicatedTraceError, TraceNotFoundError } = require('./errors.js')
 const joi = require('joi')
-const view = require('./trace-view.js')
 
 const schema = joi.object().required().keys({
   id: joi.string().uuid().required(),
@@ -25,6 +24,21 @@ const schema = joi.object().required().keys({
   })
 })
 
+const diffms = (a, b) =>  {
+  return new Date(a).getTime() - new Date(b).getTime()
+}
+
+const computedProps = (trace, metadata) => ({
+  took: diffms(trace.response.timestamp, trace.request.timestamp),
+  timestamp: metadata.timestamp
+})
+
+const mergeWithComputedProps = (trace, metadata, children) => Object.freeze({
+  ...trace,
+  children,
+  ...computedProps(trace, metadata)
+})
+
 const recursiveinspect = async (storage, { trace, metadata }) => {
   const children = await storage
     .findAllByParentId(trace.id)
@@ -32,18 +46,16 @@ const recursiveinspect = async (storage, { trace, metadata }) => {
       return recursiveinspect(storage, entry)
     })))
 
-  return view(trace, metadata, children)
+  return mergeWithComputedProps(trace, metadata, children)
 }
 
 module.exports = (storage) => ({
   async create (input) {
-    // Requests with invalid input schema will cause joi to throw an exception which
-    // will be handled by joi error handler middleware, returning a 422 response.
     const trace = await schema.validate(input)
     const metadata = { timestamp: new Date() }
 
     if (await storage.exists(trace.id)) {
-      throw errors.DuplicatedTraceError.factory(trace.id)
+      throw DuplicatedTraceError.factory(id)
     }
 
     await storage.create(trace.id, trace, metadata)
@@ -52,7 +64,7 @@ module.exports = (storage) => ({
     const entry = await storage.findOneById(traceid)
 
     if (!entry) {
-      throw errors.TraceNotFoundError.factory(traceid)
+      throw TraceNotFoundError.factory(traceid)
     }
 
     return recursiveinspect(storage, entry)

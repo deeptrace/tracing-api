@@ -1,11 +1,11 @@
 'use strict'
 
-const { env } = require('@deep-trace/appify')
+const { config, halt } = require('@deeptrace/config')
 
-module.exports = {
-  namespace: env.get('DEEPTRACE_NAMESPACE', 'deep-trace'),
+module.exports = halt(() => config(({ env, is }) => ({
+  namespace: env('DEEPTRACE_NAMESPACE', [ is.defaultTo('traces') ]),
   mongodb: {
-    db: env.get('DEEPTRACE_MONGODB_DB'),
-    uri: env.get('DEEPTRACE_MONGODB_URI')
+    db: env('DEEPTRACE_MONGODB_DB', [ is.required() ]),
+    uri: env('DEEPTRACE_MONGODB_URI', [ is.required() ])
   }
-}
+})))

@@ -21,9 +21,9 @@ services:
             - mongodb
         environment:
             DEBUG: appify:*
-            DEEPTRACE_MONGODB_URI: mongodb://mongodb:27017/deep-trace
+            DEEPTRACE_MONGODB_URI: mongodb://mongodb:27017/deeptrace
             NODE_ENV: development
-            VIRTUAL_HOST: api.deep-trace.*
+            VIRTUAL_HOST: api.deeptrace.*
 
 volumes:
     mongodb:

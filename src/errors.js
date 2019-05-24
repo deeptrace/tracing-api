@@ -1,6 +1,6 @@
 'use strict'
 
-const { Error, HttpError } = require('@deep-trace/appify')
+const { Error } = require('@deeptrace/appify')
 
 class DeepTraceError extends Error {
   //
@@ -17,12 +17,11 @@ class DuplicatedTraceError extends DeepTraceError {
 class TraceNotFoundError extends DeepTraceError {
   static factory (id) {
     return new TraceNotFoundError(
-      `There seems to be not trace with given id "${id}". Are you sure that's the right id?`
+      `Couldn't find a trace with id "${id}". Are you sure that's the right id?`
     )
   }
 }
 
-module.exports.HttpError = HttpError
 module.exports.DeepTraceError = DeepTraceError
 module.exports.DuplicatedTraceError = DuplicatedTraceError
 module.exports.TraceNotFoundError = TraceNotFoundError

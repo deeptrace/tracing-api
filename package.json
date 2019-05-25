@@ -7,11 +7,11 @@
         "watch": "nodemon -w config.js -w package.json -w package-lock.json -w src/ -x appify -d -c config.js src/api.js"
     },
     "dependencies": {
-        "@deeptrace/appify": "^1.0.3",
-        "@deeptrace/config": "^1.0.4",
+        "@deeptrace/appify": "^1.0.7",
+        "@deeptrace/config": "^1.0.7",
         "express-rescue": "^1.1.20",
         "joi": "^14.3.1",
-        "mongodb": "^3.2.5"
+        "mongodb": "^3.2.6"
     },
     "devDependencies": {
         "nodemon": "^1.19.0",

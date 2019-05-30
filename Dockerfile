@@ -6,7 +6,6 @@ WORKDIR /tracing-api
 COPY package.json package-lock.json ./
 RUN npm install --production
 COPY src/ ./src/
-COPY config.js ./
 
 ENV NODE_ENV production
 

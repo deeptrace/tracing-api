@@ -3,7 +3,7 @@
     "scripts": {
         "dev": "appify-http -d src/api.js",
         "lint": "standard",
-        "start": "DEBUG=appify:server appify-http src/api.js",
+        "start": "appify-http src/api.js",
         "watch": "nodemon -w config.js -w package.json -w package-lock.json -w src/ -x appify-http -d src/api.js"
     },
     "dependencies": {

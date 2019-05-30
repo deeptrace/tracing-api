@@ -1,16 +1,17 @@
 {
     "name": "@deeptrace/tracing-api",
     "scripts": {
-        "dev": "appify -d -c config.js src/api.js",
+        "dev": "appify-http -d src/api.js",
         "lint": "standard",
-        "start": "appify -c config.js src/api.js",
-        "watch": "nodemon -w config.js -w package.json -w package-lock.json -w src/ -x appify -d -c config.js src/api.js"
+        "start": "DEBUG=appify:server appify-http src/api.js",
+        "watch": "nodemon -w config.js -w package.json -w package-lock.json -w src/ -x appify-http -d src/api.js"
     },
     "dependencies": {
-        "@deeptrace/appify": "^1.0.7",
-        "@deeptrace/config": "^1.0.7",
+        "@deeptrace/appify": "^1.0.11",
+        "@deeptrace/config": "^1.0.11",
         "express-rescue": "^1.1.20",
         "joi": "^14.3.1",
+        "koa": "^2.7.0",
         "mongodb": "^3.2.6"
     },
     "devDependencies": {

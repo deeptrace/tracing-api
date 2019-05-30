@@ -8,17 +8,17 @@ services:
         volumes:
             - /var/run/docker.sock:/tmp/docker.sock:ro
 
-    mongodb:
+    mongo:
         image: mvertes/alpine-mongo
         ports:
             - 27017:27017
         volumes:
-            - mongodb:/data/db
+            - mongo:/data/db
 
     tracing-api:
         build: .
         depends_on:
-            - mongodb
+            - mongo
         environment:
             DEBUG: appify:*
             DEEPTRACE_MONGODB_URI: mongodb://mongodb:27017/deeptrace
@@ -26,4 +26,4 @@ services:
             VIRTUAL_HOST: api.deeptrace.*
 
 volumes:
-    mongodb:
+    mongo:

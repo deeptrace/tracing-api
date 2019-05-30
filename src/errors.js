@@ -1,8 +1,8 @@
 'use strict'
 
-const { Error } = require('@deeptrace/appify')
+const { CommonError } = require('@deeptrace/appify')
 
-class DeepTraceError extends Error {
+class DeepTraceError extends CommonError {
   //
 }
 

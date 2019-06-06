@@ -3,19 +3,19 @@
     "scripts": {
         "dev": "appify-http -d src/api.js",
         "lint": "standard",
+        "lint:fix": "standard --fix",
         "start": "appify-http src/api.js",
         "watch": "nodemon -w config.js -w package.json -w package-lock.json -w src/ -x appify-http -d src/api.js"
     },
     "dependencies": {
-        "@deeptrace/appify": "^1.0.11",
-        "@deeptrace/config": "^1.0.11",
+        "@deeptrace/appify": "^1.0.20",
+        "@deeptrace/config": "^1.0.15",
         "express-rescue": "^1.1.20",
         "joi": "^14.3.1",
-        "koa": "^2.7.0",
-        "mongodb": "^3.2.6"
+        "mongodb": "^3.2.7"
     },
     "devDependencies": {
-        "nodemon": "^1.19.0",
+        "nodemon": "^1.19.1",
         "standard": "^12.0.1"
     }
 }

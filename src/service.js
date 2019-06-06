@@ -8,23 +8,27 @@ const schema = joi.object().required().keys({
   parentid: joi.string().uuid().required().allow(null),
   rootid: joi.string().uuid().required(),
   tags: joi.object().pattern(joi.string(), joi.string().allow(null)).required(),
+  caller: joi.object().required().unknown().keys({
+    ip: joi.string().ip().required(),
+  }),
   request: joi.object().required().keys({
     method: joi.string().required(),
     url: joi.string().uri({ scheme: [ 'http', 'https' ] }).trim().required(),
-    ip: joi.string().ip().required(),
     headers: joi.object().pattern(joi.string(), joi.string()).required(),
+    search: joi.string().required().allow(null),
     body: joi.string().required().allow(null),
-    timestamp: joi.date().iso().raw().required()
+    timestamp: joi.date().iso().required()
   }),
   response: joi.object().required().keys({
     status: joi.number().integer().required(),
     headers: joi.object().pattern(joi.string(), joi.string()).required(),
     body: joi.string().required().allow(null),
-    timestamp: joi.date().iso().raw().required()
-  })
+    timestamp: joi.date().iso().required()
+  }),
+  timestamp: joi.date().iso().required()
 })
 
-const diffms = (a, b) =>  {
+const diffms = (a, b) => {
   return new Date(a).getTime() - new Date(b).getTime()
 }
 
@@ -55,10 +59,10 @@ module.exports = (storage) => ({
     const metadata = { timestamp: new Date() }
 
     if (await storage.exists(trace.id)) {
-      throw DuplicatedTraceError.factory(id)
+      throw DuplicatedTraceError.factory(trace.id)
     }
 
-    await storage.create(trace.id, trace, metadata)
+    await storage.create(trace, metadata)
   },
   async inspect (traceid) {
     const entry = await storage.findOneById(traceid)

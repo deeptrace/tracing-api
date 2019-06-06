@@ -2,6 +2,11 @@
 
 const COLLECTION_INDEXES = [
   {
+    key: { 'trace.id': 1 },
+    name: 'deeptrace__trace_id',
+    background: true
+  },
+  {
     key: { 'trace.parentid': 1 },
     name: 'deeptrace__trace_parentid',
     background: true
@@ -23,16 +28,16 @@ module.exports = (mongo, { namespace }) => {
     .catch((err) => { console.error(err) })
 
   return {
-    async create (_id, trace, metadata) {
-      await collection.insertOne({ _id, trace, metadata })
+    async create (trace, metadata) {
+      await collection.insertOne({ trace, metadata })
     },
-    async exists (_id) {
+    async exists (id) {
       return collection
-        .findOne({ _id }, { projection: { _id: 1 } })
+        .findOne({ 'trace.id': id }, { projection: { _id: 1 } })
         .then((doc) => !!doc)
     },
-    async findOneById (_id) {
-      return collection.findOne({ _id }, DEFAULT_OPERATION_OPTIONS)
+    async findOneById (id) {
+      return collection.findOne({ 'trace.id': id }, DEFAULT_OPERATION_OPTIONS)
     },
     async findAllByParentId (parentid) {
       return collection

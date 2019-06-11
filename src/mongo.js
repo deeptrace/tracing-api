@@ -1,6 +1,7 @@
 'use strict'
 
 const { MongoClient } = require('mongodb')
+const retry = require('promise-retry')
 
 const DEFAULT_SETTINGS = {
   poolSize: 10,
@@ -8,10 +9,11 @@ const DEFAULT_SETTINGS = {
 }
 
 module.exports = async ({ uri, db, options = { } }) => {
-  const conn = await MongoClient.connect(uri, {
-    ...DEFAULT_SETTINGS,
-    ...options
-  })
+  const conn = await retry((retry) => (
+    MongoClient
+      .connect(uri, { ...DEFAULT_SETTINGS, ...options })
+      .catch(retry)
+  ))
 
   const database = conn.db(db)
   const admin = database.admin()

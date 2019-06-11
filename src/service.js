@@ -15,7 +15,7 @@ const schema = joi.object().required().keys({
     method: joi.string().required(),
     url: joi.string().uri({ scheme: [ 'http', 'https' ] }).trim().required(),
     headers: joi.object().pattern(joi.string(), joi.string()).required(),
-    search: joi.string().required().allow(null),
+    query: joi.string().required().allow(null),
     body: joi.string().required().allow(null),
     timestamp: joi.date().iso().required()
   }),

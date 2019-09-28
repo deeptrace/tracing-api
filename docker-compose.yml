@@ -20,6 +20,7 @@ services:
         depends_on:
             - mongo
             - vhost
+        image: deeptrace/tracing-api:next
         environment:
             DEBUG: appify:*
             DEEPTRACE_MONGODB_URI: mongodb://mongo:27017/traces

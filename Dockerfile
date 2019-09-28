@@ -1,4 +1,4 @@
-FROM node:10.15-alpine
+FROM node:12.10-alpine
 
 RUN mkdir -p /tracing-api
 WORKDIR /tracing-api

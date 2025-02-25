@@ -1,5 +1,6 @@
 {
     "name": "@deeptrace/tracing-api",
+    "version": "0.1.0",
     "scripts": {
         "dev": "appify-http -d src/api.js",
         "lint": "standard",
